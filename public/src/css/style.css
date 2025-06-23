@@ -491,7 +491,7 @@ nav .menu-icon,
   }
 
   header .right img {
-    height: 350px;
+    display: none;
   }
 
   .container {
@@ -530,6 +530,7 @@ nav .menu-icon,
 
   #featured .logos {
     flex-direction: column;
+    align-items: center;
     gap: 40px;
   }
 

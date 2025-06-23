@@ -16,6 +16,7 @@
     <link href="src/css/brands.css" rel="stylesheet">
     <link href="src/css/solid.css" rel="stylesheet">
   <link href="src/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/style.css" />
   <script src="src/js/jquery-3.6.0.min.js"></script>
   <script src="src/js/jquery.validate.min.js"></script>
   <style>
@@ -33,43 +34,6 @@ body {
   background: #f5f4f4;
 }
 
-#nav-menu {
-  position: fixed;
-  top: 30px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 254, 254, 0.4) 100%
-  );
-  backdrop-filter: blur(10px);
-  width: 1000px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 32px;
-  border-radius: 24px;
-  box-shadow: 0 4px 50px -8px rgba(0, 0, 0, 0.2);
-  z-index: 300;
-}
-#nav-menu .logo img {
-  max-width: 125px;
-  transition: transform 0.3s ease;
-}
-
-#nav-menu .nav-menu-items {
-  display: flex;
-  gap: 50px;
-}
-
-#nav-menu .nav-menu-items .nav-menu-link {
-  transition: transform 0.3s ease;
-  text-decoration: none;
-    color: #000;
-    font-family: "Poppins", sans-serif;
-}
-
     .continer-login {
       background: linear-gradient(135deg, #dfe9f3, #ffffff);
       min-height: 100vh;
@@ -80,6 +44,7 @@ body {
       color: #00247D;
     }
     .card {
+      margin-top: 100px;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       padding: 2rem;
@@ -110,14 +75,24 @@ body {
 
 </style></head>
 <body class="">
-      <nav id="nav-menu">
+    <nav>
       <a href="#" class="logo"><img src="images/logo.png" alt=""></a>
-      <div class="nav-menu-items">
-        <a class="nav-menu-link" href="index.html">Inicio</a>
-        <a class="nav-menu-link" href="#pricing">Noticias</a>
-        <a class="nav-menu-link" href="metricas/metricas.html">Métricas</a>
+      <div class="nav-items">
+        <a class="nav-link" href="index.html">Inicio</a>
+        <a class="nav-link" href="#pricing">Noticias</a>
+        <a class="nav-link" href="metricas/metricas.html">Métricas</a>
+      </div>
+
+      <div class="menu-icon">
+        <img src="images/menu-icon.svg" alt="" />
       </div>
     </nav>
+
+    <div class="mobile-nav-menu">        
+        <a class="nav-link" href="index.html">Inicio</a>
+        <a class="nav-link" href="#pricing">Noticias</a>
+        <a class="nav-link" href="metricas/metricas.html">Métricas</a>
+    </div>
   <div class="continer-login">
   <div class="card text-center">
     <img src="images/logo.png" class="mb-3" alt="Logo" style="max-width: 250px; margin: auto;">
@@ -164,8 +139,11 @@ body {
   <div class="copyright">
     Diseñado con propósito por Sala de Autogobierno © 2025
   </div>
- </div>
+</div>
   <script>
+    const menuIcon = document.querySelector(".menu-icon");
+    const mobileNavMenu = document.querySelector(".mobile-nav-menu");
+    const navLinks = document.querySelectorAll(".nav-link");
     $(document).ready(function () {
       $('#loginForm').validate({
         rules: {
@@ -206,6 +184,28 @@ body {
         $(this).toggleClass('fa-eye fa-eye-slash');
       });
     });
+    menuIcon.addEventListener("click", () => {
+  mobileNavMenu.classList.toggle("active");
+});
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    const targetId = link.getAttribute("href");
+
+    // Solo prevenir el comportamiento si es un ancla interna (#...)
+    if (targetId.startsWith("#")) {
+      e.preventDefault();
+      const targetElement = document.querySelector(targetId);
+
+      if (targetElement) {
+        const offset = targetElement.offsetTop - 60;
+        window.scrollTo({ top: offset });
+      }
+
+      mobileNavMenu.classList.remove("active");
+    }
+  });
+});
   </script>
 </body>
 </html>
